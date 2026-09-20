@@ -15,8 +15,14 @@
     href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Great+Vibes&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,800;1,400&display=swap"
     rel="stylesheet">
 
+  <!-- Preload Audio for Immediate Playback -->
+  <link rel="preload" href="./bgmu.mp3" as="audio">
+
   <!-- Styles -->
   <link rel="stylesheet" href="/src/style.css">
+
+  <!-- Audio elements (placed early so browser begins loading immediately) -->
+  <audio id="bg-audio" autoplay loop src="./bgmu.mp3" preload="auto" type="audio/mpeg" playsinline></audio>
 </head>
 
 <body>
@@ -38,7 +44,12 @@
       </div>
     </div>
 
-    <div class="audio-actions"></div>
+    <div class="audio-actions">
+      <button id="music-toggle-btn" class="audio-btn" title="Toggle background music">
+        <span id="music-icon">🎶</span>
+        <span id="music-text">Music On</span>
+      </button>
+    </div>
   </header>
 
   <!-- NAVIGATION DRAWER FOR 13 PAGES -->
@@ -862,8 +873,7 @@
     </div>
   </div>
 
-  <!-- Audio elements -->
-  <audio id="bg-audio" autoplay loop src="./bgmu.mp3" preload="auto" type="audio/mpeg"></audio>
+  <!-- Voice Note audio element -->
   <audio id="voice-audio" src="./voicenote.mp3" preload="auto" type="audio/mpeg"></audio>
 
   <!-- Application Main JS -->

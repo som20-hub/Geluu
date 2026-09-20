@@ -33,6 +33,15 @@ export function initAudioSystem() {
         updateMusicButtonUI(false);
       }
     });
+
+    // Try playing immediately as soon as media metadata or enough data is ready
+    ['canplay', 'canplaythrough', 'loadedmetadata'].forEach(evt => {
+      bgAudioEl.addEventListener(evt, () => {
+        if (bgAudioEl.paused && isBgMusicActive !== false) {
+          playBgMusic();
+        }
+      });
+    });
   }
 
   if (musicToggleBtn) {
@@ -126,6 +135,7 @@ function updateMusicButtonUI(isPlaying) {
 
 // Automatically start background music on page load, with interaction fallback for browser autoplay rules
 function attemptAutoPlayMusic() {
+  bgAudioEl = bgAudioEl || document.getElementById('bg-audio');
   if (!bgAudioEl) return;
 
   const tryStartAudio = () => {
@@ -137,7 +147,7 @@ function attemptAutoPlayMusic() {
         console.log("🎵 Background music playing automatically!");
       }).catch((err) => {
         updateMusicButtonUI(false);
-        console.log("🎵 Autoplay waiting for user tap/click/scroll:", err.message);
+        console.log("🎵 Autoplay waiting for user tap/click/scroll/move:", err.message);
         attachInteractionUnlock();
       });
     }
@@ -158,12 +168,15 @@ function attemptAutoPlayMusic() {
     }
   };
 
-  const events = ['click', 'touchstart', 'pointerdown', 'keydown', 'scroll', 'wheel'];
+  const events = ['click', 'touchstart', 'touchend', 'pointerdown', 'mousedown', 'keydown', 'scroll', 'mousemove', 'wheel'];
 
   const attachInteractionUnlock = () => {
     events.forEach(evt => {
-      window.addEventListener(evt, unlockAudio, { passive: true });
-      document.addEventListener(evt, unlockAudio, { passive: true });
+      window.addEventListener(evt, unlockAudio, { passive: true, once: false });
+      document.addEventListener(evt, unlockAudio, { passive: true, once: false });
+      if (document.body) {
+        document.body.addEventListener(evt, unlockAudio, { passive: true, once: false });
+      }
     });
   };
 
@@ -171,6 +184,9 @@ function attemptAutoPlayMusic() {
     events.forEach(evt => {
       window.removeEventListener(evt, unlockAudio);
       document.removeEventListener(evt, unlockAudio);
+      if (document.body) {
+        document.body.removeEventListener(evt, unlockAudio);
+      }
     });
   };
 
@@ -348,4 +364,13 @@ function stopVisualizer() {
   if (visInterval) clearInterval(visInterval);
   const bars = document.querySelectorAll('.v-bar');
   bars.forEach(b => b.style.height = '20%');
+}
+
+// Immediate execution attempt as soon as script is parsed
+if (typeof document !== 'undefined') {
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => attemptAutoPlayMusic());
+  } else {
+    attemptAutoPlayMusic();
+  }
 }
