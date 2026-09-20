@@ -137,7 +137,7 @@ function attemptAutoPlayMusic() {
         console.log("🎵 Background music playing automatically!");
       }).catch((err) => {
         updateMusicButtonUI(false);
-        console.log("🎵 Autoplay waiting for user tap/click:", err.message);
+        console.log("🎵 Autoplay waiting for user tap/click/scroll:", err.message);
         attachInteractionUnlock();
       });
     }
@@ -158,12 +158,12 @@ function attemptAutoPlayMusic() {
     }
   };
 
-  const events = ['click', 'touchstart', 'pointerdown', 'keydown'];
+  const events = ['click', 'touchstart', 'pointerdown', 'keydown', 'scroll', 'wheel'];
 
   const attachInteractionUnlock = () => {
     events.forEach(evt => {
-      window.addEventListener(evt, unlockAudio);
-      document.addEventListener(evt, unlockAudio);
+      window.addEventListener(evt, unlockAudio, { passive: true });
+      document.addEventListener(evt, unlockAudio, { passive: true });
     });
   };
 
