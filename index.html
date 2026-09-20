@@ -26,6 +26,7 @@
   <!-- Sticky Top Header & Journey Progress Bar -->
   <header class="audio-control-bar">
     <div class="brand">
+      <button id="nav-menu-btn" class="nav-drawer-trigger" title="Open Journey Menu">☰</button>
       <span class="heart-pulse">❤️</span>
       <span class="brand-text">Forever Yours</span>
     </div>
@@ -38,6 +39,16 @@
       </div>
     </div>
 
+    <div class="audio-actions">
+      <button id="music-toggle-btn" class="audio-btn" title="Toggle Background Music">
+        <span id="music-icon">🎵</span>
+        <span id="music-text">Play Song</span>
+      </button>
+      <button id="open-customizer-btn" class="customize-btn" title="Customize Special Settings">
+        <span>⚙️</span>
+        <span>Customize</span>
+      </button>
+    </div>
   </header>
 
   <!-- NAVIGATION DRAWER FOR 13 PAGES -->
@@ -862,8 +873,8 @@
   </div>
 
   <!-- Audio elements -->
-  <audio id="bg-audio" loop src="/bgmu.mp3"></audio>
-  <audio id="voice-audio" src="/voicenote.mp3" preload="metadata"></audio>
+  <audio id="bg-audio" loop src="./bgmu.mp3" preload="auto" type="audio/mpeg"></audio>
+  <audio id="voice-audio" src="./voicenote.mp3" preload="auto" type="audio/mpeg"></audio>
 
   <!-- Application Main JS -->
   <script type="module" src="/src/main.js"></script>

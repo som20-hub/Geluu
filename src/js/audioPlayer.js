@@ -19,21 +19,30 @@ export function initAudioSystem() {
   const voiceStatus = document.getElementById('voice-status');
 
   const musicToggleBtn = document.getElementById('music-toggle-btn');
-  const musicIcon = document.getElementById('music-icon');
-  const musicText = document.getElementById('music-text');
+
+  // Keep UI button state synchronized with actual audio playback events
+  if (bgAudioEl) {
+    bgAudioEl.addEventListener('play', () => {
+      isBgMusicActive = true;
+      updateMusicButtonUI(true);
+    });
+
+    bgAudioEl.addEventListener('pause', () => {
+      if (!wasBgMusicPlayingBeforeVoice) {
+        isBgMusicActive = false;
+        updateMusicButtonUI(false);
+      }
+    });
+  }
 
   if (musicToggleBtn) {
-    musicToggleBtn.addEventListener('click', () => {
+    musicToggleBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
       if (bgAudioEl) {
         if (bgAudioEl.paused) {
-          playBgMusic().then(() => {
-            if (musicIcon) musicIcon.textContent = '🎶';
-            if (musicText) musicText.textContent = 'Music On';
-          });
+          playBgMusic();
         } else {
           pauseBgMusic();
-          if (musicIcon) musicIcon.textContent = '🔇';
-          if (musicText) musicText.textContent = 'Muted';
         }
       }
     });
@@ -99,54 +108,87 @@ export function initAudioSystem() {
   generateVisualizerBars();
 }
 
+function updateMusicButtonUI(isPlaying) {
+  const musicToggleBtn = document.getElementById('music-toggle-btn');
+  const musicIcon = document.getElementById('music-icon');
+  const musicText = document.getElementById('music-text');
+
+  if (isPlaying) {
+    if (musicIcon) musicIcon.textContent = '🎶';
+    if (musicText) musicText.textContent = 'Music On';
+    if (musicToggleBtn) musicToggleBtn.classList.add('playing');
+  } else {
+    if (musicIcon) musicIcon.textContent = '🎵';
+    if (musicText) musicText.textContent = 'Play Song';
+    if (musicToggleBtn) musicToggleBtn.classList.remove('playing');
+  }
+}
+
 // Automatically start background music on page load, with interaction fallback for browser autoplay rules
 function attemptAutoPlayMusic() {
+  if (!bgAudioEl) return;
+
   const tryStartAudio = () => {
-    if (!bgAudioEl) return;
-    
-    // Attempt play
     const promise = bgAudioEl.play();
     if (promise !== undefined) {
       promise.then(() => {
         isBgMusicActive = true;
+        updateMusicButtonUI(true);
         console.log("🎵 Background music playing automatically!");
-      }).catch(() => {
-        console.log("🎵 Autoplay waiting for user tap/click...");
+      }).catch((err) => {
+        updateMusicButtonUI(false);
+        console.log("🎵 Autoplay waiting for user tap/click:", err.message);
+        attachInteractionUnlock();
       });
     }
   };
 
-  // 1. Try immediate autoplay
-  tryStartAudio();
-
-  // 2. Attach global one-time interaction handler on document & window for instant playback on first tap/click/keydown/scroll
   const unlockAudio = () => {
     if (bgAudioEl && bgAudioEl.paused) {
       bgAudioEl.play().then(() => {
         isBgMusicActive = true;
+        updateMusicButtonUI(true);
         console.log("🎵 Background music started on user interaction!");
-      }).catch(err => console.warn("Audio unlock failed:", err));
+        removeUnlockListeners();
+      }).catch(err => {
+        console.warn("Audio unlock waiting for user gesture:", err);
+      });
+    } else if (bgAudioEl && !bgAudioEl.paused) {
+      removeUnlockListeners();
     }
+  };
 
-    // Clean up event listeners after unlocking
-    ['click', 'touchstart', 'pointerdown', 'keydown', 'scroll'].forEach(evt => {
+  const events = ['click', 'touchstart', 'pointerdown', 'keydown'];
+
+  const attachInteractionUnlock = () => {
+    events.forEach(evt => {
+      window.addEventListener(evt, unlockAudio);
+      document.addEventListener(evt, unlockAudio);
+    });
+  };
+
+  const removeUnlockListeners = () => {
+    events.forEach(evt => {
       window.removeEventListener(evt, unlockAudio);
       document.removeEventListener(evt, unlockAudio);
     });
   };
 
-  ['click', 'touchstart', 'pointerdown', 'keydown', 'scroll'].forEach(evt => {
-    window.addEventListener(evt, unlockAudio, { once: true });
-    document.addEventListener(evt, unlockAudio, { once: true });
-  });
+  tryStartAudio();
 }
 
 export function playBgMusic() {
   isBgMusicActive = true;
   if (bgAudioEl && bgAudioEl.src) {
-    return bgAudioEl.play().catch(err => {
-      console.warn("playBgMusic blocked:", err);
-    });
+    const promise = bgAudioEl.play();
+    if (promise !== undefined) {
+      return promise.then(() => {
+        updateMusicButtonUI(true);
+      }).catch(err => {
+        console.warn("playBgMusic blocked:", err);
+        updateMusicButtonUI(false);
+      });
+    }
   }
 }
 
@@ -155,6 +197,7 @@ export function pauseBgMusic() {
   if (bgAudioEl && !bgAudioEl.paused) {
     bgAudioEl.pause();
   }
+  updateMusicButtonUI(false);
   stopAmbientSynth();
 }
 
@@ -166,6 +209,7 @@ function pauseBgMusicForVoice() {
 function resumeBgMusicAfterVoice() {
   if (wasBgMusicPlayingBeforeVoice) {
     playBgMusic();
+    wasBgMusicPlayingBeforeVoice = false;
   }
 }
 

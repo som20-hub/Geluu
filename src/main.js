@@ -8,7 +8,7 @@ import { initGalleries } from './js/galleries.js';
 import { initAudioSystem } from './js/audioPlayer.js';
 import { initCouponsAndJar } from './js/couponsAndJar.js';
 import { initQuiz } from './js/quiz.js';
-import { initLoveTimer } from './js/customizer.js';
+import { initCustomizer, initLoveTimer } from './js/customizer.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   console.log("💖 Initializing 13-Page Romantic Experience...");
@@ -60,4 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 10. Live Love Anniversary Counter (Page 1)
   safeRun('Love Timer', () => initLoveTimer("2023-03-09"));
+
+  // 11. Customizer State & Modal Hub
+  safeRun('Customizer', () => initCustomizer());
 });

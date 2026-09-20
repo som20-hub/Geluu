@@ -170,6 +170,14 @@ body {
   box-shadow: var(--shadow-glow);
 }
 
+.audio-btn.playing {
+  background: rgba(255, 117, 140, 0.35);
+  border-color: var(--color-accent-pink);
+  color: #fff;
+  box-shadow: 0 0 15px rgba(255, 117, 140, 0.6);
+  animation: pulse 2s infinite ease-in-out;
+}
+
 .customize-btn {
   background: linear-gradient(135deg, rgba(255, 117, 140, 0.25), rgba(255, 209, 102, 0.25));
   border-color: var(--color-accent-gold);
