@@ -2,9 +2,6 @@
 
 let bgAudioEl = null;
 let voiceAudioEl = null;
-let audioCtx = null;
-let isSynthesizerPlaying = false;
-let synthInterval = null;
 let isBgMusicActive = false;
 let wasBgMusicPlayingBeforeVoice = false;
 
@@ -18,46 +15,31 @@ export function initAudioSystem() {
   const voicePlayIcon = document.getElementById('voice-play-icon');
   const voiceStatus = document.getElementById('voice-status');
 
-  const musicToggleBtn = document.getElementById('music-toggle-btn');
-
-  // Keep UI button state synchronized with actual audio playback events
+  // Keep background music active state in sync
   if (bgAudioEl) {
+    bgAudioEl.loop = true;
+
     bgAudioEl.addEventListener('play', () => {
       isBgMusicActive = true;
-      updateMusicButtonUI(true);
     });
 
     bgAudioEl.addEventListener('pause', () => {
       if (!wasBgMusicPlayingBeforeVoice) {
         isBgMusicActive = false;
-        updateMusicButtonUI(false);
       }
     });
 
     // Try playing immediately as soon as media metadata or enough data is ready
-    ['canplay', 'canplaythrough', 'loadedmetadata'].forEach(evt => {
+    ['canplay', 'canplaythrough', 'loadedmetadata', 'load'].forEach(evt => {
       bgAudioEl.addEventListener(evt, () => {
-        if (bgAudioEl.paused && isBgMusicActive !== false) {
+        if (bgAudioEl.paused) {
           playBgMusic();
         }
       });
     });
   }
 
-  if (musicToggleBtn) {
-    musicToggleBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      if (bgAudioEl) {
-        if (bgAudioEl.paused) {
-          playBgMusic();
-        } else {
-          pauseBgMusic();
-        }
-      }
-    });
-  }
-
-  // Attempt Autoplay Background Music on load + user interaction fallback
+  // Attempt Autoplay Background Music on load + background & interaction triggers
   attemptAutoPlayMusic();
 
   // Voice Note Event Listeners: Auto-pause background music on voice play, auto-resume on finish/pause
@@ -117,37 +99,22 @@ export function initAudioSystem() {
   generateVisualizerBars();
 }
 
-function updateMusicButtonUI(isPlaying) {
-  const musicToggleBtn = document.getElementById('music-toggle-btn');
-  const musicIcon = document.getElementById('music-icon');
-  const musicText = document.getElementById('music-text');
-
-  if (isPlaying) {
-    if (musicIcon) musicIcon.textContent = '🎶';
-    if (musicText) musicText.textContent = 'Music On';
-    if (musicToggleBtn) musicToggleBtn.classList.add('playing');
-  } else {
-    if (musicIcon) musicIcon.textContent = '🎵';
-    if (musicText) musicText.textContent = 'Play Song';
-    if (musicToggleBtn) musicToggleBtn.classList.remove('playing');
-  }
-}
-
-// Automatically start background music on page load, with interaction fallback for browser autoplay rules
+// Automatically start background music on page load, background tab activation, or first gesture fallback
 function attemptAutoPlayMusic() {
   bgAudioEl = bgAudioEl || document.getElementById('bg-audio');
   if (!bgAudioEl) return;
 
+  bgAudioEl.loop = true;
+
   const tryStartAudio = () => {
+    if (!bgAudioEl) return;
     const promise = bgAudioEl.play();
     if (promise !== undefined) {
       promise.then(() => {
         isBgMusicActive = true;
-        updateMusicButtonUI(true);
         console.log("🎵 Background music playing automatically!");
       }).catch((err) => {
-        updateMusicButtonUI(false);
-        console.log("🎵 Autoplay waiting for user tap/click/scroll/move:", err.message);
+        console.log("🎵 Autoplay waiting for background tab activation or user interaction:", err.message);
         attachInteractionUnlock();
       });
     }
@@ -157,18 +124,21 @@ function attemptAutoPlayMusic() {
     if (bgAudioEl && bgAudioEl.paused) {
       bgAudioEl.play().then(() => {
         isBgMusicActive = true;
-        updateMusicButtonUI(true);
-        console.log("🎵 Background music started on user interaction!");
+        console.log("🎵 Background music started!");
         removeUnlockListeners();
       }).catch(err => {
-        console.warn("Audio unlock waiting for user gesture:", err);
+        console.warn("Audio unlock waiting:", err);
       });
     } else if (bgAudioEl && !bgAudioEl.paused) {
       removeUnlockListeners();
     }
   };
 
-  const events = ['click', 'touchstart', 'touchend', 'pointerdown', 'mousedown', 'keydown', 'scroll', 'mousemove', 'wheel'];
+  const events = [
+    'click', 'touchstart', 'touchend', 'pointerdown', 'mousedown',
+    'keydown', 'scroll', 'mousemove', 'wheel', 'visibilitychange',
+    'focus', 'pageshow'
+  ];
 
   const attachInteractionUnlock = () => {
     events.forEach(evt => {
@@ -190,7 +160,21 @@ function attemptAutoPlayMusic() {
     });
   };
 
+  // Immediate start attempt
   tryStartAudio();
+
+  // Retry when page becomes visible or focused (e.g., opened in background)
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden && bgAudioEl && bgAudioEl.paused) {
+      tryStartAudio();
+    }
+  });
+
+  window.addEventListener('focus', () => {
+    if (bgAudioEl && bgAudioEl.paused) {
+      tryStartAudio();
+    }
+  });
 }
 
 export function playBgMusic() {
@@ -199,10 +183,9 @@ export function playBgMusic() {
     const promise = bgAudioEl.play();
     if (promise !== undefined) {
       return promise.then(() => {
-        updateMusicButtonUI(true);
+        isBgMusicActive = true;
       }).catch(err => {
         console.warn("playBgMusic blocked:", err);
-        updateMusicButtonUI(false);
       });
     }
   }
@@ -213,13 +196,13 @@ export function pauseBgMusic() {
   if (bgAudioEl && !bgAudioEl.paused) {
     bgAudioEl.pause();
   }
-  updateMusicButtonUI(false);
-  stopAmbientSynth();
 }
 
 function pauseBgMusicForVoice() {
   wasBgMusicPlayingBeforeVoice = isBgMusicActive;
-  pauseBgMusic();
+  if (bgAudioEl && !bgAudioEl.paused) {
+    bgAudioEl.pause();
+  }
 }
 
 function resumeBgMusicAfterVoice() {
@@ -242,50 +225,6 @@ export function setCustomVoiceNote(src) {
     const voiceCardTitle = document.getElementById('voice-card-title');
     if (voiceCardTitle) voiceCardTitle.textContent = "Your Special Voice Note";
   }
-}
-
-// Web Audio API Synthesizer (Fallback procedural chords if no audio file is provided)
-function startAmbientSynth() {
-  if (!audioCtx) {
-    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-  }
-  if (audioCtx.state === 'suspended') {
-    audioCtx.resume();
-  }
-
-  isSynthesizerPlaying = true;
-  const notes = [261.63, 329.63, 392.00, 493.88, 523.25]; // C4, E4, G4, B4, C5
-  let idx = 0;
-
-  function playChord() {
-    if (!isSynthesizerPlaying) return;
-    const freq = notes[idx % notes.length];
-    idx++;
-
-    const osc = audioCtx.createOscillator();
-    const gain = audioCtx.createGain();
-
-    osc.type = 'sine';
-    osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-
-    gain.gain.setValueAtTime(0.01, audioCtx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.12, audioCtx.currentTime + 1);
-    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 3.5);
-
-    osc.connect(gain);
-    gain.connect(audioCtx.destination);
-
-    osc.start();
-    osc.stop(audioCtx.currentTime + 3.6);
-  }
-
-  playChord();
-  synthInterval = setInterval(playChord, 2200);
-}
-
-function stopAmbientSynth() {
-  isSynthesizerPlaying = false;
-  if (synthInterval) clearInterval(synthInterval);
 }
 
 // Voice Note Controls
