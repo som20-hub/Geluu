@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Forever Yours - Our 13 Pages of Love</title>
+  <meta name="description"
+    content="A 13-page interactive romantic journey created with endless love for my wonderful wife.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Great+Vibes&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,800;1,400&display=swap"
+    rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/src/style.css">
+</head>
+
+<body>
+  <!-- Canvas for floating hearts & rose petals background -->
+  <canvas id="particle-canvas"></canvas>
+
+  <!-- Sticky Top Header & Journey Progress Bar -->
+  <header class="audio-control-bar">
+    <div class="brand">
+      <span class="heart-pulse">❤️</span>
+      <span class="brand-text">Forever Yours</span>
+    </div>
+
+    <!-- Journey Step Tracker -->
+    <div class="header-journey-tracker">
+      <span id="nav-step-text" class="journey-step-tag">Page 1 of 13</span>
+      <div class="journey-progress-track">
+        <div id="nav-progress-fill" class="journey-progress-fill" style="width: 7.69%;"></div>
+      </div>
+    </div>
+
+  </header>
+
+  <!-- NAVIGATION DRAWER FOR 13 PAGES -->
+  <div id="nav-drawer" class="nav-drawer-overlay hidden">
+    <div class="nav-drawer-content">
+      <div class="drawer-header">
+        <h3>✨ Our 13 Special Pages</h3>
+        <button id="close-drawer-btn" class="drawer-close">&times;</button>
+      </div>
+      <div class="drawer-list">
+        <button class="drawer-link" data-page="1">1. Welcome Gateway & Love Counter ⏳</button>
+        <button class="drawer-link" data-page="2">2. Sealed 3D Envelope & Love Letter 💌</button>
+        <button class="drawer-link" data-page="3">3. Interactive Photo Jigsaw Puzzle 🧩</button>
+        <button class="drawer-link" data-page="4">4. Scratch Card #1 - Secret Photo 🪄</button>
+        <button class="drawer-link" data-page="5">5. Gallery Style 1 - Floating Polaroids 📸</button>
+        <button class="drawer-link" data-page="6">6. Husband's Voice Note & Recorder 🎙️</button>
+        <button class="drawer-link" data-page="7">7. Gallery Style 2 - Cinema Film Strip 📽️</button>
+        <button class="drawer-link" data-page="8">8. Scratch Card #2 - Golden Promise 🗝️</button>
+        <button class="drawer-link" data-page="9">9. Gallery Style 3 - Grand Heart Matrix 💖</button>
+        <button class="drawer-link" data-page="10">10. Magic Jar of 100 Love Notes 🏺</button>
+        <button class="drawer-link" data-page="11">11. Gallery Style 4 - 3D Rotating Carousel 🎠</button>
+        <button class="drawer-link" data-page="12">12. Romantic Quiz - Our Story Trivia 🧠</button>
+        <button class="drawer-link" data-page="13">13. Grand Finale - Celestial Stars 🌌</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN MULTI-PAGE WRAPPER -->
+  <main class="main-wrapper">
+
+    <!-- PAGE 1: WELCOME & LOVE TIMER -->
+    <div class="page-screen active-page" id="page-1">
+      <section class="hero-section">
+        <div class="hero-badge">A 13-Page Romantic Journey Made For You</div>
+        <h1 class="hero-title" id="wife-hero-name">To My Dearest Wife</h1>
+        <p class="hero-subtitle">You are my today, my tomorrow, and my forever. Step into our world of memories,
+          secrets, and eternal love.</p>
+
+        <!-- Time Spent Together Counter -->
+        <div class="love-timer-card">
+          <h3 class="timer-title">From 9th March 2023 to Today We Have Together Spent</h3>
+          <div class="timer-grid" id="timer-grid">
+            <div class="timer-box">
+              <span class="timer-value" id="timer-years">00</span>
+              <span class="timer-label">Years</span>
+            </div>
+            <div class="timer-box">
+              <span class="timer-value" id="timer-days">000</span>
+              <span class="timer-label">Days</span>
+            </div>
+            <div class="timer-box">
+              <span class="timer-value" id="timer-hours">00</span>
+              <span class="timer-label">Hours</span>
+            </div>
+            <div class="timer-box">
+              <span class="timer-value" id="timer-minutes">00</span>
+              <span class="timer-label">Minutes</span>
+            </div>
+            <div class="timer-box">
+              <span class="timer-value" id="timer-seconds">00</span>
+              <span class="timer-label">Seconds</span>
+            </div>
+          </div>
+
+          <!-- Emotional Love Message Below Timer -->
+          <div class="timer-footer-quote">
+            <p class="timer-quote-text">
+              "I feel so lucky to spend this much time with you. I don't know at which stage of my life you might leave me alone, but really I want to spend the rest of my life with you; but not only the rest of my life, whenever I take birth in this world, I only want to spend my whole life with you." ❤️✨
+            </p>
+          </div>
+        </div>
+
+        <button class="special-next-btn pulse-glow" data-next-page="2">
+          <span>✨ Unfold Our Story & Break Wax Seal 💌</span>
+          <span class="btn-arrow">→</span>
+        </button>
+      </section>
+    </div>
+
+    <!-- PAGE 2: SEALED 3D LOVE LETTER ENVELOPE -->
+    <div class="page-screen hidden" id="page-2">
+      <section class="section-container">
+        <div class="section-header">
+          <span class="section-tag">Page 2 of 13 • Direct From My Heart</span>
+          <h2 class="section-title">A Sealed Love Letter</h2>
+          <p class="section-desc">Tap the wax seal to break open the envelope and read what I wrote for you.</p>
+        </div>
+
+        <div class="envelope-wrapper">
+          <div class="envelope" id="envelope">
+            <div class="envelope-back"></div>
+            <div class="letter-preview">
+              <div class="letter-paper" id="letter-paper">
+                <div class="letter-header">
+                  <span class="letter-date" id="letter-date">Today & Always</span>
+                  <h3 class="letter-salutation" id="letter-salutation">My Dearest Sweetheart,</h3>
+                </div>
+                <div class="letter-body" id="letter-body-text">
+                  <!-- Typewriter text will inject here -->
+                </div>
+                <div class="letter-footer">
+                  <p>Forever and always yours,</p>
+                  <div class="letter-signature" id="letter-signature">Your Loving Husband</div>
+                </div>
+              </div>
+            </div>
+            <div class="envelope-top-flap" id="envelope-flap"></div>
+            <div class="envelope-front"></div>
+            <div class="wax-seal" id="wax-seal" title="Click to open letter!">
+              <div class="seal-heart">❤️</div>
+              <span class="seal-text">OPEN ME</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="page-nav-actions">
+          <button class="special-prev-btn" data-prev-page="true">← Previous</button>
+          <button class="special-next-btn" data-next-page="3">
+            <span>🧩 Assemble Our Picture of Love 🖼️</span>
+            <span class="btn-arrow">→</span>
+          </button>
+        </div>
+      </section>
+    </div>
+
+    <!-- PAGE 3: INTERACTIVE PHOTO JIGSAW PUZZLE -->
+    <div class="page-screen hidden" id="page-3">
+      <section class="section-container">
+        <div class="section-header">
+          <span class="section-tag">Page 3 of 13 • Interactive Memory Game</span>
+          <h2 class="section-title">Assemble Our Picture Of Love</h2>
+          <p class="section-desc">Click tiles to swap them until our memory photo is complete!</p>
+        </div>
+
+        <div class="puzzle-container">
+          <div class="puzzle-controls">
+            <span class="puzzle-badge">Moves: <strong id="puzzle-moves">0</strong></span>
+            <button id="shuffle-puzzle-btn" class="puzzle-btn">🔀 Shuffle Puzzle</button>
+            <button id="hint-puzzle-btn" class="puzzle-btn">👁️ Show Hint</button>
+          </div>
+
+          <div class="puzzle-game-area">
+            <div id="puzzle-board" class="puzzle-board"></div>
+            <img id="puzzle-hint-img" src="/assets/AS1.jpeg" alt="Puzzle Hint" class="puzzle-hint-overlay">
+          </div>
+
+          <div id="puzzle-status" class="puzzle-status-text">Swap tiles to rebuild our memory ❤️</div>
+        </div>
+
+        <div class="page-nav-actions">
+          <button class="special-prev-btn" data-prev-page="true">← Previous</button>
+          <button class="special-next-btn" data-next-page="4">
+            <span>🪄 Scratch Magic Card #1 ✨</span>
+            <span class="btn-arrow">→</span>
+          </button>
+        </div>
+      </section>
+    </div>
+
+    <!-- PAGE 4: SCRATCH CARD #1 -->
+    <div class="page-screen hidden" id="page-4">
+      <section class="section-container">
+        <div class="section-header">
+          <span class="section-tag">Page 4 of 13 • Scratch To Reveal</span>
+          <h2 class="section-title">Scratch Card #1: Secret Photo</h2>
+          <p class="section-desc">Scratch off the golden rose cover with your mouse or finger!</p>
+        </div>
+
+        <div class="scratch-card-box single-scratch">
+          <div class="card-badge">Secret Moment #1</div>
+          <h3 class="card-title">Our Hidden Memory</h3>
+          <div class="scratch-canvas-container" id="scratch-container-1">
+            <div class="revealed-content" id="scratch-reveal-1">
+              <img src="/assets/AS2.jpeg" alt="Secret Memory Photo" id="scratch-photo-1" class="scratch-revealed-img">
+              <div class="scratch-caption" id="scratch-caption-1">"Every moment spent with you is like a beautiful dream
+                come true."</div>
+            </div>
+            <canvas id="scratch-canvas-1" class="scratch-canvas"></canvas>
+          </div>
+          <div class="scratch-instructions">✨ Drag your mouse/finger across the card to reveal the photo!</div>
+        </div>
+
+        <div class="page-nav-actions">
+          <button class="special-prev-btn" data-prev-page="true">← Previous</button>
+          <button class="special-next-btn" data-next-page="5">
+            <span>📸 View Vintage Polaroid Memories 🎞️</span>
+            <span class="btn-arrow">→</span>
+          </button>
+        </div>
+      </section>
+    </div>
+
+    <!-- PAGE 5: GALLERY STYLE 1 - FLOATING POLAROIDS -->
+    <div class="page-screen hidden" id="page-5">
+      <section class="section-container">
+        <div class="section-header">
+          <span class="section-tag">Page 5 of 13 • Gallery Style 1</span>
+          <h2 class="section-title">Vintage Polaroid Memories</h2>
+          <p class="section-desc">Click any polaroid to flip it and read the tape note on the back!</p>
+        </div>
+
+        <div class="polaroid-grid">
+          <!-- Card 1 -->
+          <div class="polaroid-card rotate-left">
+            <div class="polaroid-inner">
+              <div class="polaroid-front">
+                <div class="polaroid-tape"></div>
+                <img src="/assets/AS3.jpeg" alt="Polaroid 1">
+                <p class="polaroid-caption">"My Favorite Soul"</p>
+              </div>
+              <div class="polaroid-back">
+                <p>"The day you smiled at me like this, I knew my heart belonged to you forever."</p>
+                <span class="polaroid-tag">— With All My Heart ❤️</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="polaroid-card rotate-right">
+            <div class="polaroid-inner">
+              <div class="polaroid-front">
+                <div class="polaroid-tape"></div>
+                <img src="/assets/AS4.jpeg" alt="Polaroid 2" class="fit-rose">
+                <p class="polaroid-caption">"Rose of My Heart 🌹"</p>
+              </div>
+              <div class="polaroid-back">
+                <p>"Walking through life holding your hand is my life's greatest blessing."</p>
+                <span class="polaroid-tag">— Forever Yours 💕</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="polaroid-card rotate-left-more">
+            <div class="polaroid-inner">
+              <div class="polaroid-front">
+                <div class="polaroid-tape"></div>
+                <img src="/assets/AS5.jpeg" alt="Polaroid 3">
+                <p class="polaroid-caption">"Silly & Sweet With You 😚"</p>
+              </div>
+              <div class="polaroid-back">
+                <p>"Your playful spirit and cute pout make my heart melt every single day. Making sweet memories with
+                  you is my favorite thing in the world!"</p>
+                <span class="polaroid-tag">— My Adorable Queen 💖</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 4 -->
+          <div class="polaroid-card rotate-right-more">
+            <div class="polaroid-inner">
+              <div class="polaroid-front">
+                <div class="polaroid-tape"></div>
+                <img src="/assets/AS6.jpeg" alt="Polaroid 4">
+                <p class="polaroid-caption">"Your Gentle Heart"</p>
+              </div>
+              <div class="polaroid-back">
+                <p>"Your warmth and kindness inspire me to be a better man every single day."</p>
+                <span class="polaroid-tag">— My Sweet Queen 👑</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 5 -->
+          <div class="polaroid-card rotate-left">
+            <div class="polaroid-inner">
+              <div class="polaroid-front">
+                <div class="polaroid-tape"></div>
+                <img src="/assets/AS7.jpeg" alt="Polaroid 5">
+                <p class="polaroid-caption">"Our Special Date Night 🍽️✨"</p>
+              </div>
+              <div class="polaroid-back">
+                <p>"Dressed up, sitting close to you, and celebrating us under warm lights — every single date with you
+                  feels like a fairytale come true."</p>
+                <span class="polaroid-tag">— My Beautiful Queen 👑</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 6 -->
+          <div class="polaroid-card rotate-straight">
+            <div class="polaroid-inner">
+              <div class="polaroid-front">
+                <div class="polaroid-tape"></div>
+                <img src="/assets/AS8.jpeg" alt="Polaroid 6">
+                <p class="polaroid-caption">"My Forever Soulmate"</p>
+              </div>
+              <div class="polaroid-back">
+                <p>"Out of 8 billion people on Earth, finding you was the luckiest moment of my life."</p>
+                <span class="polaroid-tag">— 1 in 8 Billion 💫</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="page-nav-actions">
+          <button class="special-prev-btn" data-prev-page="true">← Previous</button>
+          <button class="special-next-btn" data-next-page="6">
+            <span>🎙️ Listen To My Heartbeat Voice 💓</span>
+            <span class="btn-arrow">→</span>
+          </button>
+        </div>
+      </section>
+    </div>
+
+    <!-- PAGE 6: HUSBAND'S VOICE NOTE HUB -->
+    <div class="page-screen hidden" id="page-6">
+      <section id="voice-section" class="section-container">
+        <div class="section-header">
+          <span class="section-tag">Page 6 of 13 • Listen Close</span>
+          <h2 class="section-title">My Voice Note To You</h2>
+          <p class="section-desc">Press play to hear a special audio message recorded directly from my heart.</p>
+        </div>
+
+        <div class="voice-card">
+          <div class="voice-card-header">
+            <div class="husband-avatar">
+              <span>🤵‍♂️</span>
+            </div>
+            <div class="voice-info">
+              <h3 class="voice-title" id="voice-card-title">A Message From Your Husband</h3>
+              <span class="voice-status" id="voice-status">Tap play to listen ❤️</span>
+            </div>
+          </div>
+
+          <!-- Audio Waveform Visualizer -->
+          <div class="audio-waveform-container">
+            <div class="visualizer-bars" id="visualizer-bars">
+              <!-- Dynamic bars -->
+            </div>
+          </div>
+
+          <div class="audio-player-controls">
+            <button id="main-voice-play-btn" class="play-circle-btn">
+              <span id="voice-play-icon">▶</span>
+            </button>
+            <div class="audio-time-bar">
+              <input type="range" id="voice-seek-bar" value="0" min="0" max="100">
+              <div class="time-display">
+                <span id="voice-current-time">0:00</span> / <span id="voice-duration">0:00</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="page-nav-actions">
+          <button class="special-prev-btn" data-prev-page="true">← Previous</button>
+          <button class="special-next-btn" data-next-page="7">
+            <span>📽️ Walk Down Cinema Film Strip Reel 🌟</span>
+            <span class="btn-arrow">→</span>
+          </button>
+        </div>
+      </section>
+    </div>
+
+    <!-- PAGE 7: GALLERY STYLE 2 - CINEMA FILM STRIP -->
+    <div class="page-screen hidden" id="page-7">
+      <section class="section-container">
+        <div class="section-header">
+          <span class="section-tag">Page 7 of 13 • Gallery Style 2</span>
+          <h2 class="section-title">Cinema Film Strip Reel</h2>
+          <p class="section-desc">Scroll left and right through the movie frames of our love story.</p>
+        </div>
+
+        <div class="film-strip-wrapper">
+          <button id="film-prev-btn" class="film-nav-btn">◀</button>
+          <div class="film-strip-reel">
+            <!-- Frame 1 -->
+            <div class="film-frame">
+              <div class="film-holes top"></div>
+              <div class="film-img-wrap"><img src="/assets/AS9.jpeg" alt="Movie 1"></div>
+              <div class="film-holes bottom"></div>
+              <span class="frame-num">FRAME #01 • SCENE 1</span>
+              <p class="film-caption">"Silly Pout Faces Outdoors 😗🌿"</p>
+            </div>
+
+            <!-- Frame 2 -->
+            <div class="film-frame">
+              <div class="film-holes top"></div>
+              <div class="film-img-wrap"><img src="/assets/AS10.jpeg" alt="Movie 2"></div>
+              <div class="film-holes bottom"></div>
+              <span class="frame-num">FRAME #02 • SCENE 2</span>
+              <p class="film-caption">"You Make My Day ❤️"</p>
+            </div>
+
+            <!-- Frame 3 -->
+            <div class="film-frame">
+              <div class="film-holes top"></div>
+              <div class="film-img-wrap"><img src="/assets/AS11.jpeg" alt="Movie 3"></div>
+              <div class="film-holes bottom"></div>
+              <span class="frame-num">FRAME #03 • SCENE 3</span>
+              <p class="film-caption">"Roses & Radiance 🌹✨"</p>
+            </div>
+
+            <!-- Frame 4 -->
+            <div class="film-frame">
+              <div class="film-holes top"></div>
+              <div class="film-img-wrap"><img src="/assets/AS12.jpeg" alt="Movie 4"></div>
+              <div class="film-holes bottom"></div>
+              <span class="frame-num">FRAME #04 • SCENE 4</span>
+              <p class="film-caption">"Your Radiant Smile 😊🌸"</p>
+            </div>
+
+            <!-- Frame 5 -->
+            <div class="film-frame">
+              <div class="film-holes top"></div>
+              <div class="film-img-wrap"><img src="/assets/AS13.jpeg" alt="Movie 5"></div>
+              <div class="film-holes bottom"></div>
+              <span class="frame-num">FRAME #05 • SCENE 5</span>
+              <p class="film-caption">"Warm Embraces 🌙❤️"</p>
+            </div>
+
+            <!-- Frame 6 -->
+            <div class="film-frame">
+              <div class="film-holes top"></div>
+              <div class="film-img-wrap"><img src="/assets/AS14.jpeg" alt="Movie 6"></div>
+              <div class="film-holes bottom"></div>
+              <span class="frame-num">FRAME #06 • SCENE 6</span>
+              <p class="film-caption">"Forever Best Partner 👍🌟"</p>
+            </div>
+          </div>
+          <button id="film-next-btn" class="film-nav-btn">▶</button>
+        </div>
+
+        <div class="page-nav-actions">
+          <button class="special-prev-btn" data-prev-page="true">← Previous</button>
+          <button class="special-next-btn" data-next-page="8">
+            <span>🎁 Unveil Secret Golden Promise 🗝️</span>
+            <span class="btn-arrow">→</span>
+          </button>
+        </div>
+      </section>
+    </div>
+
+    <!-- PAGE 8: SCRATCH CARD #2 -->
+    <div class="page-screen hidden" id="page-8">
+      <section class="section-container">
+        <div class="section-header">
+          <span class="section-tag">Page 8 of 13 • Golden Surprise</span>
+          <h2 class="section-title">Scratch Card #2: Eternal Promise</h2>
+          <p class="section-desc">Scratch to unseal my secret golden promise written just for you.</p>
+        </div>
+
+        <div class="scratch-card-box single-scratch">
+          <div class="card-badge">Golden Secret #2</div>
+          <h3 class="card-title">A Lifetime Promise</h3>
+          <div class="scratch-canvas-container" id="scratch-container-2">
+            <div class="revealed-content text-reveal-content" id="scratch-reveal-2">
+              <div class="secret-quote-icon">💌</div>
+              <h4 id="scratch-title-2">My Eternal Promise To You</h4>
+              <div id="scratch-text-2" class="promise-letter-body">
+                <p>Geluu, I don’t promise you a perfect life. I promise you me—my heart, my hand, and my presence,
+                  through every beautiful moment and every difficult one.</p>
+                <p>I promise that no matter how many years pass, I will never stop choosing you. I will still want to
+                  hear your voice, hold your hand, make you smile, and come home to you.</p>
+                <p>And when life changes us, when we grow old and our faces carry the story of everything we’ve been
+                  through, I promise to look at you and remember the woman who became my home.</p>
+                <p>If my heart gets one final wish at the end of my life, it will be to have your hand in mine.</p>
+                <p>I found my forever in you—and I promise, with everything I am, I will spend my forever loving you.
+                </p>
+              </div>
+              <div class="secret-heart-stamp">Forever Yours ❤️</div>
+            </div>
+            <canvas id="scratch-canvas-2" class="scratch-canvas"></canvas>
+          </div>
+          <div class="scratch-instructions">✨ Scratch to reveal my golden promise to you!</div>
+        </div>
+
+        <div class="page-nav-actions">
+          <button class="special-prev-btn" data-prev-page="true">← Previous</button>
+          <button class="special-next-btn" data-next-page="9">
+            <span>💖 Enter Glowing Heart Gallery 💫</span>
+            <span class="btn-arrow">→</span>
+          </button>
+        </div>
+      </section>
+    </div>
+
+    <!-- PAGE 9: GALLERY STYLE 3 - GRAND 28-PHOTO HEART MATRIX -->
+    <div class="page-screen hidden" id="page-9">
+      <section class="section-container">
+        <div class="section-header">
+          <span class="section-tag">Page 9 of 13 • Heart Matrix</span>
+          <h2 class="section-title">Our Heart Of 28 Memories</h2>
+          <p class="section-desc">28 precious moments combined together to create a beautiful glowing heart of our love
+            story.</p>
+        </div>
+
+        <div class="heart-collage-container mega-heart-wrapper">
+          <div class="mega-heart-grid">
+            <!-- Row 1 (2 Top Arches - 4 cells) -->
+            <div class="h-cell r0 c1"><img src="/assets/AS1.jpeg" alt="Memory 1"></div>
+            <div class="h-cell r0 c2"><img src="/assets/AS2.jpeg" alt="Memory 2"></div>
+            <div class="h-cell r0 c4"><img src="/assets/AS3.jpeg" alt="Memory 3"></div>
+            <div class="h-cell r0 c5"><img src="/assets/AS4.jpeg" alt="Memory 4" class="fit-rose"></div>
+
+            <!-- Row 2 (Full Lobe Width - 7 cells) -->
+            <div class="h-cell r1 c0"><img src="/assets/AS5.jpeg" alt="Memory 5"></div>
+            <div class="h-cell r1 c1"><img src="/assets/AS6.jpeg" alt="Memory 6"></div>
+            <div class="h-cell r1 c2"><img src="/assets/AS7.jpeg" alt="Memory 7"></div>
+            <div class="h-cell r1 c3"><img src="/assets/AS8.jpeg" alt="Memory 8"></div>
+            <div class="h-cell r1 c4"><img src="/assets/AS9.jpeg" alt="Memory 9"></div>
+            <div class="h-cell r1 c5"><img src="/assets/AS10.jpeg" alt="Memory 10"></div>
+            <div class="h-cell r1 c6"><img src="/assets/AS11.jpeg" alt="Memory 11"></div>
+
+            <!-- Row 3 (Full Body Width - 7 cells) -->
+            <div class="h-cell r2 c0"><img src="/assets/AS12.jpeg" alt="Memory 12"></div>
+            <div class="h-cell r2 c1"><img src="/assets/AS13.jpeg" alt="Memory 13"></div>
+            <div class="h-cell r2 c2"><img src="/assets/AS14.jpeg" alt="Memory 14"></div>
+            <div class="h-cell r2 c3 center-heart-cell"><img src="/assets/AS15.jpeg" alt="Memory 15"
+                class="fit-center"><span class="center-heart-label">Us Forever ❤️</span></div>
+            <div class="h-cell r2 c4"><img src="/assets/AS16.jpeg" alt="Memory 16"></div>
+            <div class="h-cell r2 c5"><img src="/assets/AS17.jpeg" alt="Memory 17" class="fit-rose"></div>
+            <div class="h-cell r2 c6"><img src="/assets/AS18.jpeg" alt="Memory 18"></div>
+
+            <!-- Row 4 (Smooth Taper - 5 cells) -->
+            <div class="h-cell r3 c1"><img src="/assets/AS19.jpeg" alt="Memory 19"></div>
+            <div class="h-cell r3 c2"><img src="/assets/AS20.jpeg" alt="Memory 20"></div>
+            <div class="h-cell r3 c3"><img src="/assets/AS21.jpeg" alt="Memory 21"></div>
+            <div class="h-cell r3 c4"><img src="/assets/AS22.jpeg" alt="Memory 22"></div>
+            <div class="h-cell r3 c5"><img src="/assets/AS23.jpeg" alt="Memory 23"></div>
+
+            <!-- Row 5 (Narrow Taper - 3 cells) -->
+            <div class="h-cell r4 c2"><img src="/assets/AS24.jpeg" alt="Memory 24"></div>
+            <div class="h-cell r4 c3"><img src="/assets/AS25.jpeg" alt="Memory 25"></div>
+            <div class="h-cell r4 c4"><img src="/assets/AS26.jpeg" alt="Memory 26"></div>
+
+            <!-- Row 6 (Bottom Tip Point - 2 cells) -->
+            <div class="h-cell r5 c2"><img src="/assets/AS27.jpeg" alt="Memory 27"></div>
+            <div class="h-cell r5 c3 tip-cell"><img src="/assets/AS28.jpeg" alt="Memory 28"><span
+                class="tip-heart-badge">💖</span></div>
+          </div>
+        </div>
+
+        <div class="page-nav-actions">
+          <button class="special-prev-btn" data-prev-page="true">← Previous</button>
+          <button class="special-next-btn" data-next-page="10">
+            <span>💌 Pull Notes From Love Jar 🏺</span>
+            <span class="btn-arrow">→</span>
+          </button>
+        </div>
+      </section>
+    </div>
+
+    <!-- PAGE 10: MAGIC JAR OF LOVE NOTES & LOVE GAZETTE NEWSPAPER -->
+    <div class="page-screen hidden" id="page-10">
+      <section class="section-container">
+        <div class="section-header">
+          <span class="section-tag">Page 10 of 13 • Magic Love Jar</span>
+          <h2 class="section-title">Jar of Secret Love Notes</h2>
+          <p class="section-desc">Tap the glass jar to pull random notes, or <b>tap the yellow lid 🗞️</b> to open our
+            Special 15-Sentence Love Gazette Newspaper!</p>
+        </div>
+
+        <div class="jar-card-box single-jar">
+          <div class="jar-wrapper">
+            <div class="glass-jar" id="glass-jar" title="Click body for single note, click yellow lid for Newspaper!">
+              <div class="jar-lid" id="jar-lid-top" title="Tap yellow lid to open Love Newspaper Gazette!">
+                <span class="lid-newspaper-badge">🗞️ Tap Lid for Newspaper</span>
+              </div>
+              <div class="jar-body">
+                <div class="heart-paper p1">💌</div>
+                <div class="heart-paper p2">💖</div>
+                <div class="heart-paper p3">💕</div>
+                <div class="heart-paper p4">❤️</div>
+                <div class="heart-paper p5">💗</div>
+              </div>
+              <div class="jar-label">Reasons Why I Love You</div>
+            </div>
+          </div>
+
+          <button id="draw-note-btn" class="draw-btn">✨ Pull A Secret Note ✨</button>
+
+          <div id="jar-counter-text" class="jar-counter-badge">✨ 0 Notes Drawn • Tap jar to draw! ✨</div>
+
+          <div id="love-note-display" class="love-note-display hidden">
+            <div class="note-paper">
+              <span class="note-heart">💖</span>
+              <p id="note-text">"You make my heart smile every single day."</p>
+            </div>
+          </div>
+
+          <!-- History of Drawn Notes -->
+          <div id="jar-history-section" class="jar-history-section hidden">
+            <h3 class="history-title">📜 Notes You've Opened</h3>
+            <div id="drawn-history-list" class="drawn-history-list"></div>
+          </div>
+
+          <!-- UNFOLDING NEWSPAPER GAZETTE (15 Special Sentences) -->
+          <div id="love-newspaper-modal" class="love-newspaper-wrapper hidden">
+            <div class="love-newspaper-sheet">
+              <div class="newspaper-header">
+                <span class="newspaper-edition">EXTRA! SPECIAL LOVE GAZETTE • EDITION #01</span>
+                <h1 class="newspaper-title">📰 THE DAILY LOVE JOURNAL 🗞️</h1>
+                <div class="newspaper-meta-line">
+                  <span>FOREVER & ALWAYS</span>
+                  <span>15 ETERNAL DECLARATIONS OF LOVE</span>
+                  <span>FOR MY DEAREST WIFE</span>
+                </div>
+              </div>
+
+              <div class="newspaper-divider-double"></div>
+
+              <div class="newspaper-body">
+                <h2 class="newspaper-headline">"15 Reasons Why You Are My Entire Universe"</h2>
+                <p class="newspaper-subhead">A special edition written straight from the bottom of my heart, dedicated
+                  to the most beautiful queen in the world.</p>
+
+                <ol class="newspaper-sentences-list">
+                  <li><span class="list-num">01</span> "You are the single best decision, the greatest blessing, and the
+                    most beautiful miracle of my life."</li>
+                  <li><span class="list-num">02</span> "Out of eight billion people in this world, my heart chose you,
+                    and it will keep choosing you every single day."</li>
+                  <li><span class="list-num">03</span> "Your smile is my daily dose of sunshine, and your warm embrace
+                    is my safest home in the universe."</li>
+                  <li><span class="list-num">04</span> "I still get butterflies whenever you look at me with those
+                    beautiful, loving eyes."</li>
+                  <li><span class="list-num">05</span> "Thank you for loving me unconditionally, believing in me when I
+                    couldn't, and making our house feel like a peaceful paradise."</li>
+                  <li><span class="list-num">06</span> "Your laugh is my absolute favorite sound in the world, and your
+                    happiness will forever be my life's highest mission."</li>
+                  <li><span class="list-num">07</span> "No matter how tough or tiring my day is, coming home to you
+                    makes every hardship fade away into pure peace."</li>
+                  <li><span class="list-num">08</span> "You are not just my wife; you are my best friend, my soulmate,
+                    my confidante, and my eternal queen."</li>
+                  <li><span class="list-num">09</span> "Growing old with you is not a journey I am taking — it is a
+                    dream I get to live every single morning."</li>
+                  <li><span class="list-num">10</span> "With you by my side, even the ordinary, quiet moments feel like
+                    magical fairytale scenes."</li>
+                  <li><span class="list-num">11</span> "Your gentle heart, endless patience, and grace inspire me to
+                    become a better husband every day."</li>
+                  <li><span class="list-num">12</span> "I love the way we can talk for hours about everything and
+                    nothing, without ever running out of things to say."</li>
+                  <li><span class="list-num">13</span> "If I had to live my life a thousand times over, I would find you
+                    and marry you sooner in every single lifetime."</li>
+                  <li><span class="list-num">14</span> "You hold my hand in this life, and you hold my heart for all of
+                    eternity."</li>
+                  <li><span class="list-num">15</span> "I loved you yesterday, I love you today, and I promise to love
+                    you more with every single breath I take tomorrow."</li>
+                </ol>
+
+                <div class="newspaper-footer">
+                  <div class="newspaper-stamp">OFFICIAL SEAL OF ETERNAL LOVE 💖</div>
+                  <button id="close-newspaper-btn" class="close-newspaper-btn">📜 Fold Newspaper & Back To Jar
+                    🏺</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="page-nav-actions">
+          <button class="special-prev-btn" data-prev-page="true">← Previous</button>
+          <button class="special-next-btn" data-next-page="11">
+            <span>🎠 Spin The 3D Memory Carousel 🎡</span>
+            <span class="btn-arrow">→</span>
+          </button>
+        </div>
+      </section>
+    </div>
+
+    <!-- PAGE 11: GALLERY STYLE 4 - 3D ROTATING CAROUSEL -->
+    <div class="page-screen hidden" id="page-11">
+      <section class="section-container">
+        <div class="section-header">
+          <span class="section-tag">Page 11 of 13 • 3D Memory Carousel</span>
+          <h2 class="section-title">3D Rotating Memory Carousel</h2>
+          <p class="section-desc">Use the arrow buttons to spin our 3D memory wheel.</p>
+        </div>
+
+        <div class="carousel-3d-wrapper">
+          <button id="carousel-prev-btn" class="carousel-nav-btn">◀</button>
+          <div class="carousel-3d-stage">
+            <div id="carousel-3d-spinner" class="carousel-3d-spinner">
+              <div class="carousel-card"><img src="/assets/AS15.jpeg" alt="Carousel 1" class="fit-eyes"><span>Eyes
+                  Speaking Love 👀❤️</span></div>
+              <div class="carousel-card"><img src="/assets/AS16.jpeg" alt="Carousel 2" class="fit-face"><span>Classic
+                  Timeless Love 🖤✨</span></div>
+              <div class="carousel-card"><img src="/assets/AS17.jpeg" alt="Carousel 3" class="fit-face"><span>Sunny
+                  Sunday Outings 🌿☀️</span></div>
+              <div class="carousel-card"><img src="/assets/AS18.jpeg" alt="Carousel 4"><span>Resting On Your Shoulder
+                  💖</span></div>
+              <div class="carousel-card"><img src="/assets/AS19.jpeg" alt="Carousel 5" class="fit-face"><span>Under The
+                  Green Canopy 🌳✨</span></div>
+              <div class="carousel-card"><img src="/assets/AS21.jpeg" alt="Carousel 6" class="fit-face"><span>Cozy
+                  Mirror Selfies 🪞🧥</span></div>
+              <div class="carousel-card"><img src="/assets/AS27.jpeg" alt="Carousel 7" class="fit-face"><span>Side By
+                  Side Forever 👫💖</span></div>
+              <div class="carousel-card"><img src="/assets/AS28.jpeg" alt="Carousel 8" class="fit-face"><span>Holding
+                  Hands Forever 👩‍❤️‍👨</span></div>
+            </div>
+          </div>
+          <button id="carousel-next-btn" class="carousel-nav-btn">▶</button>
+        </div>
+
+        <div class="page-nav-actions">
+          <button class="special-prev-btn" data-prev-page="true">← Previous</button>
+          <button class="special-next-btn" data-next-page="12">
+            <span>🧠 Play Our Sweet Love Quiz 💘</span>
+            <span class="btn-arrow">→</span>
+          </button>
+        </div>
+      </section>
+    </div>
+
+    <!-- PAGE 12: ROMANTIC LOVE QUIZ -->
+    <div class="page-screen hidden" id="page-12">
+      <section class="section-container">
+        <div class="section-header">
+          <span class="section-tag">Page 12 of 13 • Sweet Trivia</span>
+          <h2 class="section-title">How Well Do You Know Our Story?</h2>
+          <p class="section-desc">Answer these cute questions to see how deeply our hearts are connected.</p>
+        </div>
+
+        <div class="quiz-container">
+          <div id="quiz-card-container" class="quiz-card-box">
+            <!-- Dynamic Quiz Content -->
+          </div>
+        </div>
+
+        <div class="page-nav-actions">
+          <button class="special-prev-btn" data-prev-page="true">← Previous</button>
+          <button class="special-next-btn" data-next-page="13">
+            <span>🎆 Touch The Stars & Grand Finale 🌌</span>
+            <span class="btn-arrow">→</span>
+          </button>
+        </div>
+      </section>
+    </div>
+
+    <!-- PAGE 13: GRAND FINALE - ETERNAL LOVE DECREE -->
+    <div class="page-screen hidden" id="page-13">
+      <section class="finale-super-container">
+        <!-- Floating Stars Badge -->
+        <div class="finale-badge">✨ Page 13 of 13 • Grand Finale ✨</div>
+
+        <h1 class="finale-super-title">You Are My Today, My Tomorrow & My Forever</h1>
+        <p class="finale-super-desc">Thank you for walking into my life and filling every single day with warmth,
+          beauty, and unconditional love.</p>
+
+        <!-- Certificate of Eternal Love Card -->
+        <div class="covenant-card">
+          <div class="covenant-border-corner top-left"></div>
+          <div class="covenant-border-corner top-right"></div>
+          <div class="covenant-border-corner bottom-left"></div>
+          <div class="covenant-border-corner bottom-right"></div>
+
+          <div class="covenant-header">
+            <span class="covenant-crown">👑</span>
+            <h2 class="covenant-title">Decree Of Eternal Love</h2>
+            <span class="covenant-sub">SOULMATE FOR LIFE COVENANT</span>
+          </div>
+
+          <div class="covenant-body">
+            <p class="covenant-to">This certifies that my beloved wife,</p>
+            <h3 class="covenant-wife-name" id="finale-wife-name">My Dearest Wife</h3>
+            <p class="covenant-text">Is hereby loved beyond words, cherished beyond measure, and adored for all of
+              eternity. Out of 8 billion souls on Earth, you are my one and true love.</p>
+          </div>
+
+          <div class="covenant-footer">
+            <div class="covenant-seal">
+              <span class="seal-heart">❤️</span>
+              <span class="seal-text">FOREVER</span>
+            </div>
+            <div class="covenant-sign">
+              <span class="sign-line">Signed With All My Heart,</span>
+              <span class="sign-name" id="finale-husband-name">Your Loving Husband</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Interactive Pulsing Crystal Heart -->
+        <div class="crystal-heart-interactive-box">
+          <p class="crystal-prompt">✨ Touch the glowing crystal heart below to ignite our love fireworks! ✨</p>
+          <div class="crystal-heart" id="crystal-heart-btn" title="Tap to ignite fireworks!">
+            <div class="crystal-heart-inner">💖</div>
+            <div class="crystal-ring r1"></div>
+            <div class="crystal-ring r2"></div>
+          </div>
+          <div id="crystal-secret-message" class="crystal-secret-msg hidden">
+            <p>"I loved you yesterday, I love you still, I always have, I always will."</p>
+          </div>
+        </div>
+
+        <!-- Action Buttons Footer -->
+        <div class="finale-actions-grid">
+          <button class="special-next-btn pulse-glow" data-next-page="1">
+            <span>💖 Replay Our Story From Page 1 ♾️</span>
+          </button>
+        </div>
+      </section>
+    </div>
+
+  </main>
+
+
+
+  <!-- THANK YOU FOR YOUR VALUABLE TIME MODAL (PAGE 13 FINALE) -->
+  <div id="thankyou-modal" class="modal-overlay hidden">
+    <div class="thankyou-modal-box">
+      <div class="thankyou-badge">✨ Eternal Gratitude ✨</div>
+      <div class="thankyou-crown">👑</div>
+      <h2 class="thankyou-title">Thank You For Your Valuable Time, My Queen!</h2>
+      <div class="thankyou-divider"></div>
+      <div class="thankyou-body">
+        <p>Geluu, thank you from the bottom of my heart for spending your valuable time to experience every single chapter of our 13-page love journey.</p>
+        <p>You are the greatest blessing of my life, the sweetest melody in my heart, and my eternal soulmate. Every second spent with you is a gift I will treasure forever.</p>
+        <p class="thankyou-highlight">"I loved you yesterday, I love you today, and I will love you more with every single breath tomorrow." ❤️✨</p>
+      </div>
+      <div class="thankyou-actions">
+        <button id="thankyou-replay-btn" class="special-next-btn pulse-glow">
+          <span>🔄 Replay Our Story From Page 1 ♾️</span>
+        </button>
+        <button id="thankyou-close-btn" class="special-prev-btn">
+          <span>📜 Back To Finale Page</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Audio elements -->
+  <audio id="bg-audio" loop src="/bgmu.mp3"></audio>
+  <audio id="voice-audio" src="/voicenote.mp3" preload="metadata"></audio>
+
+  <!-- Application Main JS -->
+  <script type="module" src="/src/main.js"></script>
+</body>
+
+</html>
